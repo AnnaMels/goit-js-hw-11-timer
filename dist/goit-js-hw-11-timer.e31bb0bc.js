@@ -136,6 +136,7 @@ var CountdownTimer = /*#__PURE__*/function () {
     this.hoursSpan = document.querySelector("".concat(selector, " .value[data-value=\"hours\"]"));
     this.minutesSpan = document.querySelector("".concat(selector, " .value[data-value=\"mins\"]"));
     this.secondsSpan = document.querySelector("".concat(selector, " .value[data-value=\"secs\"]"));
+    this.timerId;
   }
 
   _createClass(CountdownTimer, [{
@@ -154,7 +155,8 @@ var CountdownTimer = /*#__PURE__*/function () {
     value: function showTime() {
       var _this = this;
 
-      setInterval(function () {
+      var currentTime = new Date();
+      this.timerId = setInterval(function () {
         return _this.countDown();
       }, 1000);
     }
@@ -166,6 +168,10 @@ var CountdownTimer = /*#__PURE__*/function () {
       this.hoursSpan.textContent = this.padZero(Math.floor(time % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)));
       this.minutesSpan.textContent = this.padZero(Math.floor(time % (1000 * 60 * 60) / (1000 * 60)));
       this.secondsSpan.textContent = this.padZero(Math.floor(time % (1000 * 60) / 1000));
+
+      if (this.secondsSpan.textContent < 1 && this.daysSpan.textContent < 1 && this.hoursSpan.textContent < 1 && this.minutesSpan.textContent) {
+        clearInterval(this.timerId);
+      }
     }
   }]);
 
@@ -174,7 +180,7 @@ var CountdownTimer = /*#__PURE__*/function () {
 
 var timer = new CountdownTimer({
   selector: '#timer-1',
-  targetDate: new Date('Jun 23, 2021')
+  targetDate: new Date('Jun 24, 2021, 14:13:00')
 });
 var btn = document.querySelector('.start-button');
 btn.addEventListener("click", startTimer);
@@ -241,7 +247,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36555" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41961" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
